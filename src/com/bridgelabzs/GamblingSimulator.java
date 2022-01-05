@@ -9,6 +9,13 @@ public class GamblingSimulator {
         System.out.println("Welcome to Gambler simulator program");
         Random random = new Random();
         int betResult = random.nextInt(2);
-        winOrLoss(betResult);
+        betWinOrLoss(betResult);
+    }
+    static void betWinOrLoss(int betResult){
+        if(betResult == 1){
+            System.out.println("Gambler Wins");
+        } else {
+            System.out.println("Gambler Looses");
+        }
     }
 }
