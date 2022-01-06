@@ -2,6 +2,7 @@ package com.bridgelabzs;
 import java.util.*;
 
 public class GamblingSimulator {
+
    public static final int PER_DAY_STACK_COST = 100;
    public static final int BET_COST = 1;
    public static final int BET_WIN = 1;
@@ -11,6 +12,7 @@ public class GamblingSimulator {
 
    private static int[] winCountArray = new int[20];
    private static int[] lossCountArray = new int[20];
+   private static String[] daysStatus = new String[20];
 
    private static Random randStatus = new Random();
 
@@ -31,16 +33,20 @@ public class GamblingSimulator {
             int gameStatus = randStatus.nextInt(2) + 1;
             if (gameStatus == BET_WIN) {
                 winStack += BET_COST;
+                winCount++;
                 System.out.println("Won the Game - WIN STACK : " + winStack);
             } else {
                 lossStack += BET_COST;
+                lossCount++;
                 System.out.println("Lost the Game - LOOSE STACK :" + lossStack);
             }
             if(winStack == PER_DAY_STACK_COST/ 2) {
+                daysStatus[i] = "Win" ;
                 System.out.println("Win Stack is 50% of per day stack cost and Gambler Resigning for day");
                 break;
             }
             if(lossStack == PER_DAY_STACK_COST / 2) {
+                daysStatus[i] = "Loss";
                 System.out.println("Loss Stack is 50% of per day stack and Gambler is Resigning for the day");
                 break;
             }
@@ -56,6 +62,7 @@ public class GamblingSimulator {
         for(int i= 0; i < 20; i++) {
             System.out.println("Day " + (i+1) + " Total Win Count : " + winCountArray[i]);
             System.out.println("Day " + (i+1) + " Total Loose Count : " + lossCountArray[i]);
+            System.out.println("Gambler had" + daysStatus[i] + " Games on day " + (i+1));
         }
     }
     public static void main(String[] args) {
