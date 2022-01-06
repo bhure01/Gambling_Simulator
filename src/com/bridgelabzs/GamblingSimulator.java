@@ -6,17 +6,15 @@ public class GamblingSimulator {
    public static final int BET_COST = 1;
    public static final int BET_WIN = 1;
 
-   private static int lossStack = 0;
-   private static int winStack = 0;
+   private static final int lossStack = 0;
+   private static final int winStack = 0;
 
-    private static Random randStatus = new Random();
+   private static int[] winCountArray = new int[20];
+   private static int[] lossCountArray = new int[20];
 
-    public static void main(String[] args) {
-        System.out.println("Welcome to Gambler simulator program");
-        Random random = new Random();
-        int betResult = random.nextInt(2);
-        betWinOrLoss(betResult);
-    }
+   private static Random randStatus = new Random();
+
+
     static void betWinOrLoss(int betResult){
         if(betResult == 1){
             System.out.println("Gambler Wins");
@@ -24,7 +22,11 @@ public class GamblingSimulator {
             System.out.println("Gambler Looses");
         }
     }
-    private static void playGame() {
+    private static void playGame(int i) {
+        int winStack = 0;
+        int lossStack = 0;
+        int winCount = 0;
+        int lossCount = 0;
         while(true) {
             int gameStatus = randStatus.nextInt(2) + 1;
             if (gameStatus == BET_WIN) {
@@ -43,5 +45,27 @@ public class GamblingSimulator {
                 break;
             }
         }
+        winCountArray[i] = winCount;
+        lossCountArray[i] = lossCount;
+    }
+    private static void showGamblerStatus() {
+        System.out.println("Per Day Stack : " + PER_DAY_STACK_COST);
+        System.out.println("Bet Per Game : " + BET_COST);
+    }
+    private static void showWinLooseCount() {
+        for(int i= 0; i < 20; i++) {
+            System.out.println("Day " + (i+1) + " Total Win Count : " + winCountArray[i]);
+            System.out.println("Day " + (i+1) + " Total Loose Count : " + lossCountArray[i]);
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println("Welcome to Gambler simulator program");
+        showGamblerStatus();
+        for(int i = 0; i < 20; i++) {
+            System.out.println("Day" + (i+1) + " Play Starts");
+            playGame(i);
+            System.out.println("Day" + (i+1) + " Play Ends");
+        }
+        showWinLooseCount();
     }
 }
